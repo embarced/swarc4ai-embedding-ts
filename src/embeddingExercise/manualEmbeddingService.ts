@@ -1,38 +1,27 @@
-import { calculateCosineSimilarity } from "./cosineSimilarity.js";
 import type { TextPair } from "./model.js";
 
 export class ManualEmbeddingService {
   buildVocabulary(texts: readonly string[]): string[] {
-    const vocabulary = new Set<string>();
-
-    for (const text of texts) {
-      for (const token of this.tokenize(text)) {
-        vocabulary.add(token);
-      }
-    }
-
-    return [...vocabulary];
+    // TODO: ÜBUNG 1 - Erzeuge aus allen Texten ein gemeinsames Vokabular.
+    // TODO: ÜBUNG 1 - Zerlege dafür jeden Text in Tokens und sammle jedes
+    // Wort genau einmal.
+    // TODO: ÜBUNG 1 - Gib das Vokabular als string[] zurück.
+    throw new Error("ÜBUNG 1: Implementiere den Aufbau des Vokabulars.");
   }
 
   oneHotEncode(token: string, vocabulary: readonly string[]): number[] {
-    const normalizedToken = token.toLocaleLowerCase("de-DE");
-    return vocabulary.map((word) => (word === normalizedToken ? 1 : 0));
+    // TODO: ÜBUNG 1 - Erzeuge einen Vektor mit der Länge des Vokabulars.
+    // TODO: ÜBUNG 1 - Setze genau die Position des übergebenen Tokens auf 1.
+    // TODO: ÜBUNG 1 - Alle anderen Positionen bleiben 0.
+    throw new Error("ÜBUNG 1: Implementiere One-Hot-Encoding.");
   }
 
   toBagOfWordsVector(text: string, vocabulary: readonly string[]): number[] {
-    const vector = Array<number>(vocabulary.length).fill(0);
-    const tokenIndexes = new Map(
-      vocabulary.map((token, index) => [token, index]),
-    );
-
-    for (const token of this.tokenize(text)) {
-      const tokenIndex = tokenIndexes.get(token);
-      if (tokenIndex !== undefined) {
-        vector[tokenIndex] = (vector[tokenIndex] ?? 0) + 1;
-      }
-    }
-
-    return vector;
+    // TODO: ÜBUNG 1 - Erzeuge für den gesamten Text einen
+    // Bag-of-Words-Vektor.
+    // TODO: ÜBUNG 1 - Erhöhe für jedes vorkommende Token den passenden
+    // Zähler im Vektor.
+    throw new Error("ÜBUNG 1: Implementiere den Bag-of-Words-Vektor.");
   }
 
   calculateSimilarity(
@@ -40,9 +29,17 @@ export class ManualEmbeddingService {
     rightText: string,
     vocabulary: readonly string[],
   ): number {
-    const leftVector = this.toBagOfWordsVector(leftText, vocabulary);
-    const rightVector = this.toBagOfWordsVector(rightText, vocabulary);
-    return calculateCosineSimilarity(leftVector, rightVector);
+    // TODO: ÜBUNG 1 - Erzeuge für beide Texte jeweils einen
+    // Bag-of-Words-Vektor.
+    // TODO: ÜBUNG 1 - Berechne anschließend die Cosine Similarity mit
+    // calculateCosineSimilarity.
+    // TODO: ÜBUNG 1 - Gib den berechneten Wert zurück.
+    // SO PRÜFST DU ES: Starte die App. Es sollten für mehrere Satzpaare
+    // Bag-of-Words-Scores ausgegeben werden. Achtet darauf, dass "Auto"
+    // vs. "Fahrzeug" nur begrenzt erkannt wird und dass bei
+    // "Hund beißt Mann" vs. "Mann beißt Hund" die Wortreihenfolge
+    // verloren geht.
+    throw new Error("ÜBUNG 1: Implementiere die Bag-of-Words-Similarity.");
   }
 
   private tokenize(text: string): string[] {
@@ -68,4 +65,3 @@ export class ManualEmbeddingService {
     console.log(`Beobachtung: ${pair.explanation}`);
   }
 }
-

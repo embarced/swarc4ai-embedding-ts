@@ -2,7 +2,6 @@ import { pathToFileURL } from "node:url";
 
 import { ManualEmbeddingService } from "./manualEmbeddingService.js";
 import type { TextPair } from "./model.js";
-import { OpenAiEmbeddingService } from "./openAiEmbeddingService.js";
 
 export function createExamplePairs(): TextPair[] {
   return [
@@ -36,7 +35,7 @@ export function createExamplePairs(): TextPair[] {
   ];
 }
 
-export async function main(): Promise<void> {
+export function main(): void {
   const textPairs = createExamplePairs();
   const allTexts = textPairs.flatMap((pair) => [pair.leftText, pair.rightText]);
 
@@ -52,17 +51,14 @@ export async function main(): Promise<void> {
     manualEmbeddingService.printComparison(pair, vocabulary);
   }
 
-  const openAiEmbeddingService = new OpenAiEmbeddingService();
-  console.log("\n=== Teil 2: OpenAI Embeddings ===");
-  for (const pair of textPairs) {
-    await openAiEmbeddingService.printComparison(pair);
-  }
 }
 
 const executedFile = process.argv[1];
 if (executedFile !== undefined && import.meta.url === pathToFileURL(executedFile).href) {
-  main().catch((error: unknown) => {
+  try {
+    main();
+  } catch (error: unknown) {
     console.error(error);
     process.exitCode = 1;
-  });
+  }
 }
