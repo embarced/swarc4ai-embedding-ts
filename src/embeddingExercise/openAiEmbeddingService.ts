@@ -25,9 +25,18 @@ export class OpenAiEmbeddingService {
   }
 
   async calculateSimilarity(leftText: string, rightText: string): Promise<number> {
-    const leftEmbedding = await this.embed(leftText);
-    const rightEmbedding = await this.embed(rightText);
-    return calculateCosineSimilarity(leftEmbedding, rightEmbedding);
+    // TODO: ÜBUNG 2 - Erzeuge für den linken Text über this.embed ein
+    // OpenAI-Embedding.
+    // TODO: ÜBUNG 2 - Erzeuge für den rechten Text ebenfalls ein Embedding.
+    // TODO: ÜBUNG 2 - Berechne die Cosine Similarity zwischen beiden
+    // Embeddings.
+    // TODO: ÜBUNG 2 - Gib den berechneten Wert zurück.
+    // SO PRÜFST DU ES: Starte die App mit gesetztem OPENAI_API_KEY. Für
+    // semantisch ähnliche Satzpaare wie "Auto" vs. "Fahrzeug" sollte der
+    // Score meist höher und sinnvoller sein als bei Bag of Words.
+    throw new Error(
+      "ÜBUNG 2: Implementiere die OpenAI-Embeddings und den Similarity-Vergleich.",
+    );
   }
 
   async printComparison(pair: TextPair): Promise<void> {
@@ -43,4 +52,3 @@ export class OpenAiEmbeddingService {
     console.log(`Beobachtung: ${pair.explanation}`);
   }
 }
-
